@@ -2,7 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 var app = express();
 
@@ -19,9 +19,9 @@ app.use(
     next();
 });
 
-app.use((req,res,next) => {
-    res.render('maintenance.hbs');
-});
+// app.use((req,res,next) => {
+//     res.render('maintenance.hbs');
+// });
 
 app.use(express.static(__dirname + '/public'));
 
@@ -29,13 +29,19 @@ hbs.registerHelper('method',()=> {
     return 'check method';
 });
 app.get('/',(req,res)=> {
-    res.send('hello world');
+    res.render('welcome.hbs');
 });
 
 app.get('/json',(req,res)=>{
     res.send({
         hi:'avinash',
         intro:'this is your new node webpage........'
+    });
+});
+
+app.get('/projects',(req,res)=>{
+    res.render('project.hbs',{
+        projectTitle : 'project Page'
     });
 });
 
